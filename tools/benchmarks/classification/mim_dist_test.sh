@@ -4,7 +4,7 @@ set -x
 
 CFG=$1
 CHECKPOINT=$2
-GPUS=${GPUS:-8}
+GPUS=${GPUS:-1}
 PY_ARGS=${@:3}
 
 
@@ -14,4 +14,3 @@ mim test mmcls \
     --checkpoint $CHECKPOINT \
     --launcher pytorch \
     -G $GPUS \
-    --cfg-options $PY_ARGS

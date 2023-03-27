@@ -4,7 +4,7 @@ set -x
 
 CFG=$1
 PRETRAIN=$2
-GPUS=${GPUS:-8}
+GPUS=${GPUS:-1}
 PY_ARGS=${@:3}
 
 
