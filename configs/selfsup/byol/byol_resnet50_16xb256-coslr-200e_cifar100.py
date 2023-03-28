@@ -1,12 +1,12 @@
 _base_ = [
-    '../_base_/models/simclr.py',
-    '../_base_/datasets/cifar100_simclr.py',
-    '../_base_/schedules/lars_coslr-10e_cifar100.py',
+    '../_base_/models/byol.py',
+    '../_base_/datasets/cifar100_byol.py',
+    '../_base_/schedules/lars_coslr-200e_cifar100.py',
     '../_base_/default_runtime.py',
 ]
 
 # optimizer
-optimizer = dict(type='LARS', lr=0.3, momentum=0.9, weight_decay=1e-6)
+optimizer = dict(type='LARS', lr=4.8, momentum=0.9, weight_decay=1e-6)
 optim_wrapper = dict(
     type='OptimWrapper',
     optimizer=optimizer,
@@ -16,9 +16,8 @@ optim_wrapper = dict(
             'bias': dict(decay_mult=0, lars_exclude=True),
             # bn layer in ResNet block downsample module
             'downsample.1': dict(decay_mult=0, lars_exclude=True),
-        }))
+        }),
+)
 
 # runtime settings
-default_hooks = dict(
-    # only keeps the latest 3 checkpoints
-    checkpoint=dict(type='CheckpointHook', interval=10, max_keep_ckpts=3))
+default_hooks = dict(checkpoint=dict(max_keep_ckpts=3))
